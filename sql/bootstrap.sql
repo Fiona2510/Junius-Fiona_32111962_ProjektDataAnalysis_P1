@@ -1,4 +1,3 @@
--- Bootstrap der DuckDB-DB aus der CSV
 ATTACH 'data/tripadvisor.duckdb' AS db (READ_ONLY FALSE);
 CREATE SCHEMA IF NOT EXISTS db.main;
 USE db.main;

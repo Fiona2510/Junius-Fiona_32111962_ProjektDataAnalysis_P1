@@ -1,21 +1,21 @@
-# NLP-Analyse von TripAdvisor Hotelbewertungen (mit DuckDB)
+# NLP-Analyse von TripAdvisor Hotelbewertungen (mit DuckDB auf Windows)
 
-Dieses Projekt analysiert Hotelbewertungen mit NLP (BoW/TF‑IDF, LDA/NMF) und bestimmt die optimale Anzahl Themen über den **Coherence Score (c_v)**.
-Neu: **DuckDB** als kostenfreie, lokale Analytics-DB für schnellen, reproduzierbaren Datenzugriff.
+Dieses Projekt analysiert Hotelbewertungen mit NLP (BoW/TF‑IDF, LDA/NMF) und bestimmt die optimale Anzahl Themen über den Coherence Score (c_v).
+Eine DuckDB wird als kostenfreie, lokale Analytics-DB für schnellen, reproduzierbaren Datenzugriff genutzt.
 
-**Repository:** https://github.com/Fiona2510/Junius-Fiona_32111962_-ProjektDataAnalysis-_P1
+Windows-Hinweis: Long Paths ist auf Windows aktiviert worden, um Pfadprobleme zu vermeiden.
+
+Repository: https://github.com/Fiona2510/Junius-Fiona_32111962_ProjektDataAnalysis_P1
 
 ## Warum DuckDB?
-- **Schnell & leichtgewichtig:** In‑Process, kein Server nötig.
-- **Klare Datenpipeline:** Import/Filter/Dedupe per SQL.
-- **Kostenfrei & offline:** Eine Datei `data/tripadvisor.duckdb`.
-- **Kompatibel:** pandas/scikit-learn/gensim bleiben unverändert.
-
-> Für sehr kleine Daten reicht pandas allein. Für mittlere/große CSVs ist DuckDB i.d.R. sinnvoll.
+- Schnell & leichtgewichtig: In‑Process, kein Server nötig.
+- Klare Datenpipeline: Import/Filter/Dedupe per SQL.
+- Kostenfrei & offline: Eine Datei `data/tripadvisor.duckdb`.
+- Kompatibel: pandas/scikit-learn/gensim bleiben unverändert.
 
 ## Struktur
-```
-Junius-Fiona_32111962_-ProjektDataAnalysis-_P1/
+
+Junius-Fiona_32111962_ProjektDataAnalysis_P1/
 ├─ data/
 │  ├─ tripadvisor_hotel_reviews.csv
 │  ├─ tripadvisor.duckdb
@@ -30,63 +30,47 @@ Junius-Fiona_32111962_-ProjektDataAnalysis-_P1/
 │  └─ analysis.ipynb
 ├─ reports/
 │  ├─ coherence_vs_k.pdf
+|  ├─ topics_lda.csv
+|  ├─ topics_nmf.csv
 │  └─ Phase2_Erarbeitungs_Reflexion.pdf
 ├─ requirements.txt
+├─ README
 └─ .gitignore
-```
 
 ## Schritt-für-Schritt
 
 ### 1) Installation
-```bash
-python -m venv venv
-# macOS/Linux
-source venv/bin/activate
-# Windows
-# .\venv\Scripts\Activate.ps1
+bat
+py -m venv .venv
+call .venv\Scripts\activate.bat
 pip install -r requirements.txt
 python -c "import nltk; import ssl; ssl._create_default_https_context = ssl._create_unverified_context; import nltk; nltk.download('punkt'); nltk.download('stopwords')"
-```
 
 ### 2) CSV in DuckDB importieren
-**Variante A (Python):**
-```bash
-python -c "from src.data_store import bootstrap_from_csv; bootstrap_from_csv('data/tripadvisor_hotel_reviews.csv')"
-```
-**Variante B (SQL-Skript):**
-```bash
-python - <<'PY'
-import duckdb
-con = duckdb.connect('data/tripadvisor.duckdb')
-con.execute(open('sql/bootstrap.sql','r',encoding='utf-8').read())
-print('Bootstrapping done.')
-PY
-```
+Lege die CSV hier ab: data\tripadvisor_hotel_reviews.csv, dann:
+bat
+python -c "from src.data_store import bootstrap_from_csv; bootstrap_from_csv('data\\tripadvisor_hotel_reviews.csv', overwrite=True)"
 
 ### 3) Notebook starten
-```bash
-jupyter notebook notebooks/analysis.ipynb
-```
-- Im Abschnitt **Datenquelle via DuckDB** wird die DB angelegt (falls noch nicht vorhanden) und die Daten geladen.
-- Danach laufen Vektorisierung (BoW/TF‑IDF) und Topic‑Modelle (LDA/NMF) wie gehabt.
-- Die optimale Topic‑Zahl wird über ein k‑Grid (standardmäßig 3–10) via **Coherence c_v** bestimmt.
+bat
+jupyter notebook notebooks\analysis.ipynb
 
-### 4) Nützliche SQL-Beispiele
-```sql
--- Nur Zeilen mit Textfeld
-SELECT * FROM reviews WHERE review IS NOT NULL;
+Im Notebook der Reihe nach:
+ - Daten aus DuckDB laden
+ - Text-Cleaning → clean_review
+ - BoW/TF-IDF + LDA/NMF (Sanity-Check)
+ - Coherence-Grid (z. B. k = 3..10) → speichert reports/coherence_vs_k.pdf
+ - Export Topics → reports/topics_lda.csv, reports/topics_nmf.csv
 
--- Stichprobe (schnell testen)
-SELECT * FROM reviews USING SAMPLE 1000 ROWS;
+### 4) Ergebnisse
+ - Optimale k: k_LDA = …, k_NMF = … (jeweils höchster c_v)
+ - Typische Themen: Sauberkeit, Personal/Service, Lage, Preis-Leistung, Zimmer/Komfort
+ - Interpretation: LDA liefert probabilistische Mischungen, NMF oft klarere Trennungen
 
--- Spalteninfo
-PRAGMA table_info(reviews);
-```
+Artefakte:
+ - reports/coherence_vs_k.pdf
+ - reports/topics_lda.csv
+ - reports/topics_nmf.csv
 
 ## Hinweise
-- `src/data_store.py` kapselt die DB‑Erstellung und den Zugriff aus Python.
-- Eine Parquet‑Kopie (`data/reviews.parquet`) wird optional erzeugt und kann direkt mit pandas geladen werden.
-- Für Repro: baue die DB stets deterministisch aus der CSV (siehe `bootstrap.sql`).
-
-## Lizenz
-MIT
+Teile des Codes (DuckDB-Integration, Coherence-Grid und Notebook) wurden mit Unterstützung von ChatGPT (Modell: GPT-5 Thinking) erstellt und von der Autorin überprüft und an die Aufgabenstellung angepasst.
