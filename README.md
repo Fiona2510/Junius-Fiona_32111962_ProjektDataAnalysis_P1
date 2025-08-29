@@ -71,5 +71,9 @@ Artefakte:
  - reports/topics_lda.csv
  - reports/topics_nmf.csv
 
-## Hinweise
+## Reflexion: 
+LDA erlaubt probabilistische Mischungen pro Dokument und liefert interpretierbare Wortverteilungen, NMF führt in diesem Datensatz oft zu klareren Trennungen zwischen Themen. 
+Grenzen bestehen in domänenspezifischem Vokabular (erweiterbare Stoppwortliste) und möglichen Mehrdeutigkeiten, weshalb eine manuelle Plausibilitätsprüfung sinnvoll ist.
+
+## Hinweis
 Teile des Codes (DuckDB-Integration, Coherence-Grid und Notebook) wurden mit Unterstützung von ChatGPT (Modell: GPT-5 Thinking) erstellt und von der Autorin überprüft und an die Aufgabenstellung angepasst.
