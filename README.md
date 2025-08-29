@@ -14,29 +14,28 @@ Repository: https://github.com/Fiona2510/Junius-Fiona_32111962_ProjektDataAnalys
 - Kompatibel: pandas/scikit-learn/gensim bleiben unverändert.
 
 ## Struktur
-
-Junius-Fiona_32111962_ProjektDataAnalysis_P1/
+```
+Junius-Fiona_32111962_-ProjektDataAnalysis-_P1/
 ├─ data/
 │  ├─ tripadvisor_hotel_reviews.csv
 │  ├─ tripadvisor.duckdb
 │  └─ reviews.parquet
+├─ notebooks/
+│  └─ analysis.ipynb
 ├─ src/
 │  ├─ preprocessing.py
 │  ├─ topic_models.py
 │  └─ data_store.py
 ├─ sql/
 │  └─ bootstrap.sql
-├─ notebooks/
-│  └─ analysis.ipynb
 ├─ reports/
 │  ├─ coherence_vs_k.pdf
-|  ├─ topics_lda.csv
-|  ├─ topics_nmf.csv
-│  └─ Phase2_Erarbeitungs_Reflexion.pdf
+│  ├─ topics_lda.csv
+│  └─ topics_nmf.csv
 ├─ requirements.txt
-├─ README
+├─ README.md
 └─ .gitignore
-
+```
 ## Schritt-für-Schritt
 
 ### 1) Installation
