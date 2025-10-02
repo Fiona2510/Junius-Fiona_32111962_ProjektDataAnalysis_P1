@@ -1,0 +1,16 @@
+﻿model;topic;label;terms
+LDA;1;Sauberkeit;hotel, room, good, not, breakfast, nice, bathroom, location, great, small, the, rooms
+LDA;2;Lage/Anbindung;beach, not, resort, food, great, pool, good, did, just, time, day, people
+LDA;3;Sauberkeit;hotel, great, room, stay, location, nice, not, staff, stayed, rooms, good, clean
+LDA;4;Personal/Service;not, room, hotel, did, night, desk, service, stay, told, day, time, rooms
+LDA;5;Personal/Service;hotel, staff, great, stay, room, location, stayed, excellent, helpful, rooms, not, breakfast
+NMF;1;Lage/Anbindung;hotel, recommend, stayed, located, star, hotels, city, the, booked, barcelona, best, modern
+NMF;2;Lage/Anbindung;resort, beach, food, pool, beautiful, people, vacation, water, day, time, cana, punta
+NMF;3;Sauberkeit;great, location, rooms, staff, clean, value, price, really, friendly, stayed, time, place
+NMF;4;Sauberkeit;good, walk, station, breakfast, location, clean, metro, train, value, city, minutes, bus
+NMF;5;Sauberkeit;room, bed, floor, bathroom, view, night, small, shower, check, booked, large, the
+NMF;6;Personal/Service;not, did, like, bad, told, service, time, just, people, rooms, star, said
+NMF;7;Personal/Service;excellent, service, location, restaurant, food, rooms, good, best, stayed, business, quality, staff
+NMF;8;Sauberkeit;nice, good, really, rooms, clean, little, pretty, small, pool, area, breakfast, bit
+NMF;9;Sauberkeit;stay, staff, wonderful, helpful, friendly, perfect, lovely, paris, loved, florence, comfortable, clean
+NMF;10;Sonstiges;san, parking, car, juan, free, street, inn, place, francisco, seattle, stay, area
